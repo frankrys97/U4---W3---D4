@@ -1,7 +1,6 @@
 package francescocristiano.dao;
 
 import francescocristiano.entities.Evento;
-import francescocristiano.entities.GaraDiAtletica;
 import francescocristiano.entities.Persona;
 import francescocristiano.enums.Genere;
 import francescocristiano.exceptions.NotFoundException;
@@ -70,15 +69,39 @@ public class EventoDAO {
         return query.getResultList();
     }
 
-    public GaraDiAtletica getGaraDiAtleticaByVincitore(Persona vincitore) {
+   /* public List<GaraDiAtletica> getGareDiAtleticaByVincitore(Persona vincitore) {
         TypedQuery<GaraDiAtletica> query = em.createQuery("SELECT g FROM GaraDiAtletica g WHERE g.vincitore = :vincitore", GaraDiAtletica.class);
         query.setParameter("vincitore", vincitore);
-        return query.getSingleResult();
+        return query.getResultList();
     }
 
-    public GaraDiAtletica getGaraDiAtleticaByPartecipante(Persona partecipante) {
+    public List<GaraDiAtletica> getGareDiAtleticaByPartecipante(Persona partecipante) {
         TypedQuery<GaraDiAtletica> query = em.createQuery("SELECT g FROM GaraDiAtletica g WHERE :partecipante MEMBER OF g.atleti ", GaraDiAtletica.class);
         query.setParameter("partecipante", partecipante);
-        return query.getSingleResult();
+        return query.getResultList();
+    }*/
+
+    public List<Evento> getGareVinteByVincitore(Persona vincitore) {
+        TypedQuery<Evento> query = em.createQuery("SELECT e FROM Evento e WHERE e.vincitore = :vincitore", Evento.class);
+        query.setParameter("vincitore", vincitore);
+        return query.getResultList();
     }
+
+    public List<Evento> getGareDiAtleticaByPartecipante(Persona partecipante) {
+        TypedQuery<Evento> query = em.createQuery("SELECT e FROM Evento e WHERE :partecipante MEMBER OF e.atleti", Evento.class);
+        query.setParameter("partecipante", partecipante);
+        return query.getResultList();
+    }
+
+    // Creare una funzione che paragona la lista partecipanti di un evento con il numero massimo di partecipanti dell'evento,
+    // e restituisce una lista di eventi che hanno raggiunto il numero massimo di partecipanti, bisogna farlo con un COUNT
+
+    public List<Evento> getEventiConMassimoPartecipantiRaggiunto() {
+        TypedQuery<Evento> query = em.createQuery(
+                "SELECT e FROM Evento e WHERE SIZE(e.partecipanti) = e.numeroMassimoPartecipanti",
+                Evento.class);
+        return query.getResultList();
+    }
+
+
 }

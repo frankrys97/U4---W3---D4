@@ -23,6 +23,9 @@ public class Persona {
     @OneToMany(mappedBy = "persona")
     private List<Partecipazione> listaPartecipazioni;
 
+    @OneToMany(mappedBy = "vincitore")
+    private List<GaraDiAtletica> gareVinte;
+
 
     public Persona() {
     }
