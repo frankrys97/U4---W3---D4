@@ -1,6 +1,8 @@
 package francescocristiano.dao;
 
 import francescocristiano.entities.Evento;
+import francescocristiano.entities.GaraDiAtletica;
+import francescocristiano.entities.Persona;
 import francescocristiano.enums.Genere;
 import francescocristiano.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
@@ -66,5 +68,17 @@ public class EventoDAO {
     public List<Evento> getPartitePareggiate() {
         TypedQuery<Evento> query = em.createQuery("SELECT e FROM Evento e WHERE e.numeroGolCasa = e.numeroGolOspite", Evento.class);
         return query.getResultList();
+    }
+
+    public GaraDiAtletica getGaraDiAtleticaByVincitore(Persona vincitore) {
+        TypedQuery<GaraDiAtletica> query = em.createQuery("SELECT g FROM GaraDiAtletica g WHERE g.vincitore = :vincitore", GaraDiAtletica.class);
+        query.setParameter("vincitore", vincitore);
+        return query.getSingleResult();
+    }
+
+    public GaraDiAtletica getGaraDiAtleticaByPartecipante(Persona partecipante) {
+        TypedQuery<GaraDiAtletica> query = em.createQuery("SELECT g FROM GaraDiAtletica g WHERE :partecipante MEMBER OF g.atleti ", GaraDiAtletica.class);
+        query.setParameter("partecipante", partecipante);
+        return query.getSingleResult();
     }
 }

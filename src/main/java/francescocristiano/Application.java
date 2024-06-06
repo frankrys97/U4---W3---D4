@@ -139,6 +139,33 @@ public class Application {
         ed.getPartitePareggiate().forEach(System.out::println);
         System.out.println();
 
-        
+
+        GaraDiAtletica gara1 = new GaraDiAtletica("Gara1", new Date(), "Olimpiadi", francescocristiano.enums.TipoEvento.PUBBLICO, 1000, location3FromDb, pd.findAll(), persona1FromDb);
+        GaraDiAtletica gara2 = new GaraDiAtletica("Gara2", new Date(), "Nazionali", francescocristiano.enums.TipoEvento.PUBBLICO, 200, location3FromDb, pd.findAll(), persona2FromDb);
+        GaraDiAtletica gara3 = new GaraDiAtletica("Gara3", new Date(), "Regionali", francescocristiano.enums.TipoEvento.PRIVATO, 300, location3FromDb, pd.findAll(), persona3FromDb);
+
+
+      /*  ed.save(gara1);
+        ed.save(gara2);
+        ed.save(gara3);*/
+
+        System.out.println("Gara vinta da " + persona1FromDb.getNome() + " " + persona1FromDb.getCognome() + ": ");
+        System.out.println(ed.getGaraDiAtleticaByVincitore(persona1FromDb));
+        System.out.println();
+
+        System.out.println("Gara vinta da " + persona2FromDb.getNome() + " " + persona2FromDb.getCognome() + ": ");
+        System.out.println(ed.getGaraDiAtleticaByVincitore(persona2FromDb));
+        System.out.println();
+
+        System.out.println("Gara vinta da " + persona3FromDb.getNome() + " " + persona3FromDb.getCognome() + ": ");
+        System.out.println(ed.getGaraDiAtleticaByVincitore(persona3FromDb));
+        System.out.println();
+
+
+        System.out.println(persona1FromDb.getNome() + " " + persona1FromDb.getCognome() + " ha partecipato alla gara: ");
+        System.out.println(ed.getGaraDiAtleticaByPartecipante(persona1FromDb));
+        System.out.println();
+
+
     }
 }

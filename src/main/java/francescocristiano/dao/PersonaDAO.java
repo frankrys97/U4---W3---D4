@@ -4,7 +4,10 @@ import francescocristiano.entities.Persona;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
+import java.util.Set;
 import java.util.UUID;
+
+import static java.util.stream.Collectors.toSet;
 
 public class PersonaDAO {
     private EntityManager em;
@@ -33,5 +36,9 @@ public class PersonaDAO {
         em.remove(personaTrovata);
         transaction.commit();
         System.out.println("Persona con id " + id + " eliminata correttamente");
+    }
+
+    public Set<Persona> findAll() {
+        return em.createQuery("SELECT p FROM Persona p", Persona.class).getResultStream().collect(toSet());
     }
 }
